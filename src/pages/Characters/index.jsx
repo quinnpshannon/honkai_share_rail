@@ -1,7 +1,10 @@
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import { selectFullList } from '../../slices/characterSlice';
 
-export default function Characters ({list, setList, refer, setRefer}) {
+export default function Characters ({list, refer, lang}) {
+    
 //     const getCharacters = async() => {
 //         const response = await fetch(warpPass+'honker_characters.json');
 //         const data = await response.json();
@@ -27,11 +30,12 @@ export default function Characters ({list, setList, refer, setRefer}) {
 //             }
 //         }
 //       };
+console.log(useSelector(selectFullList));
  return (
     <>
         <h1>Characters (full list)</h1>
         {list.map(s => (
-            <h6 key={s.key}>list {s.value.AvatarName.Hash || 'undefined'}</h6>
+            <h6 key={s.key}>{s.key} list {refer[lang][s.value.AvatarName.Hash] || 'undefined'}</h6>
             ))}
     </>
  )   

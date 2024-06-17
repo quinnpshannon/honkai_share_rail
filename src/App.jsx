@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Landing from './pages/Landing'
+import Characters from './pages/Characters'
+import Character from './pages/Character'
+import Team from './pages/Team'
+import NavBar from './components/NavBar'
+import { addRoster, initFullList, selectFullList } from './slices/characterSlice';
+import { getCharacters, getReference } from './api/index'
 import './App.css'
+import { useDispatch, useSelector } from 'react-redux'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [characterList, setCharacterList] = useState([]);
+  const [langRef, setLangRef] = useState({});
+  const [lang, setLang] = useState('en');
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    getReference(setLangRef);
+    const charact = getCharacters(characterList, setCharacterList);
+    console.log(charact);
+    dispatch(initFullList(charact));
+    // dispatch(initFullList(getCharacters(characterList, setCharacterList)));
+    // console.log(charact);
+
+    // (buildList(characterList, setCharacterList, langRef, setLangRef));
+  }
+  , []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <NavBar lang={lang} setLang={setLang} refer={langRef}/>
+      <Routes>
+        <Route path='/' element={<Landing refer={langRef} lang={lang}/>} />
+        <Route path='/characters' element={
+          <Characters
+            list={characterList}
+            refer={langRef}
+            lang ={lang}
+          />} />
+        <Route path='/team' element={<Team />} />
+        <Route path='/characters/:id' element={<Character />} />
+      </Routes>
     </>
   )
 }
-
-export default App
