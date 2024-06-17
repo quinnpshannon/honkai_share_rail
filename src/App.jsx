@@ -14,17 +14,12 @@ export default function App() {
   const [characterList, setCharacterList] = useState([]);
   const [langRef, setLangRef] = useState({});
   const [lang, setLang] = useState('en');
+  const [fullList, setFullList] = useState([]);
   const dispatch = useDispatch();
   
   useEffect(() => {
     getReference(setLangRef);
-    const charact = getCharacters(characterList, setCharacterList);
-    console.log(charact);
-    dispatch(initFullList(charact));
-    // dispatch(initFullList(getCharacters(characterList, setCharacterList)));
-    // console.log(charact);
-
-    // (buildList(characterList, setCharacterList, langRef, setLangRef));
+    getCharacters(setCharacterList);
   }
   , []);
 

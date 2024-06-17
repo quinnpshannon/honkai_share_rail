@@ -10,7 +10,6 @@ export const characterSlice = createSlice({
         initFullList: async (state, action) => {
             console.log('We got there!')
             // const data = await action.payload.result
-            console.log(data);
         },
         addRoster: (state, action) => {
             state.roster.push(action.payload);
