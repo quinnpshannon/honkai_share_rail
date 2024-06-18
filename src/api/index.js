@@ -1,8 +1,9 @@
 const warpPass = import.meta.env.VITE_TEST_CHARACTERS || 'https://api.enka.network/store/hsr/';
-
+const apiHeaders = new Headers();
+apiHeaders.set("Access-Control-Allow-Origin", "*");
 export const getCharacters = async (setChars) => {
   const newList = [];
-  const response = await fetch(warpPass + 'honker_characters.json');
+  const response = await fetch(warpPass + 'honker_characters.json',{headers: apiHeaders});
   const data = await response.json();
   for await (const [key, value] of Object.entries(data)) {
       const newCharacter = { key: key, value: value }
@@ -11,7 +12,7 @@ export const getCharacters = async (setChars) => {
   setChars(newList);
 };
 export const getReference = async (setLangRef) => {
-  const response = await fetch(warpPass + 'hsr.json');
+  const response = await fetch(warpPass + 'hsr.json',{headers: apiHeaders});
   const data = await response.json();
   setLangRef(data);
 };
