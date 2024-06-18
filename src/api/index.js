@@ -1,4 +1,4 @@
-const warpPass = import.meta.env.VITE_TEST_CHARACTERS //|| 'https://api.enka.network/store/hsr/';
+const warpPass = import.meta.env.VITE_TEST_CHARACTERS || 'https://api.enka.network/store/hsr/';
 
 export const getCharacters = async (setChars) => {
   const newList = [];
@@ -9,22 +9,27 @@ export const getCharacters = async (setChars) => {
       newList.push(newCharacter)
   }
   setChars(newList);
-  // return newList;
 };
 export const getReference = async (setLangRef) => {
   const response = await fetch(warpPass + 'hsr.json');
   const data = await response.json();
   setLangRef(data);
 };
-// export const buildList = async (chars, setChars, lang, setLang) => {
-//   const compiledList = [];
-//   await getCharacters(chars, setChars);
-//   await getReference(setLang);
-//   for await (const char of chars){
-//     const hash = char.value.AvatarName.Hash
-//     char.value.AvatarNameString=lang[hash];
-//     compiledList.push(char);
-//   }
-//   // return compiledList;
-//   initFullList(compiledList);
-// };
+
+export const getOwned = async (chars, setOwned) => {
+  const data = await chars.filter((id) => 
+    (id.key==1001 || id.key=='1002' || id.key=='1009') ? true : false
+  );
+  console.log(data);
+  setOwned(await data);
+};
+
+export const pathRef = {
+  'Knight': "Preservation",
+  'Rogue': "Hunt",
+  'Mage': "Erudition",
+  'Warlock': "Nihility",
+  'Warrior': "Destruction",
+  'Shaman': "Harmony",
+  'Priest': "Abundance"
+}
