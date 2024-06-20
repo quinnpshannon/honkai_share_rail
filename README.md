@@ -10,3 +10,6 @@ Here, you can select the members on your team from the characters in your roster
 
 CHARACTERS: 
 Here, you can select the characters that you have, and save them to the database!
+
+Front End Deployed: https://honkai-share-rail.netlify.app/
+Back End Deployed: https://honkai-share-rail-server.onrender.com
