@@ -8,8 +8,8 @@ display: flex;
 flex-direction: column`
 
 
-// const baseURL = 'https://honkai-share-rail-server.onrender.com/auth/signup'
-const baseURL = 'http://localhost:4000/auth/signup'
+const baseURL = 'https://honkai-share-rail-server.onrender.com/auth/signup'
+// const baseURL = 'http://localhost:4000/auth/signup'
 
     export default function Register({setUserObj}) {
         const dispatch = useDispatch();

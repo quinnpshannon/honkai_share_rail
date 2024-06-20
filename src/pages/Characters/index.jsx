@@ -6,8 +6,8 @@ import axios from 'axios';
 import FullList from '../../components/FullList';
 import OwnedList from '../../components/OwnedList';
 
-// const baseURL = 'https://honkai-share-rail-server.onrender.com/auth/signin'
-const baseURL = 'http://localhost:4000/users/'
+const baseURL = 'https://honkai-share-rail-server.onrender.com/auth/signin'
+// const baseURL = 'http://localhost:4000/users/'
 
 const Container = styled.div`
 display: flex;
@@ -31,14 +31,8 @@ export default function Characters({ userObj }) {
     }
     const LIST = storeList.filter(filterByID);
     const OWNEDLIST = storeList.filter(ownByID);
-    console.log('Owned');
-    console.log(OWNEDLIST);
-    console.log('List');
-    console.log(LIST);
     async function handleSave(e) {
         e.preventDefault();
-        console.log(storeList);
-        console.log(OWNEDLIST);
         if (userObj.username !== '') {
             const response = await axios.put(baseURL + 'char/' + userObj.username, OWNEDLIST);
             const data = await response.data;

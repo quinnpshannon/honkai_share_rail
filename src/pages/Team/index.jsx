@@ -9,8 +9,6 @@ flex-direction: row;`
 export default function Team() {
     const oList = useSelector(selectRoster);
     const team = useSelector(selectTeam);
-    console.log(team);
-    console.log(oList);
     function filterByID(item) {
         let own = false;
         team.forEach(owned => {

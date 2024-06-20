@@ -7,7 +7,8 @@ import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import axios from 'axios'
 
-const baseURL = 'http://localhost:4000/auth/'
+const baseURL = 'https://honkai-share-rail-server.onrender.com/auth/'
+// const baseURL = 'http://localhost:4000/auth/'
 
 const Column = styled.section`
 display: flex;
