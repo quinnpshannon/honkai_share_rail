@@ -1,40 +1,36 @@
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import { selectFullList } from '../../slices/characterSlice';
-import CharacterCard from '../../components/CharacterCard'
-const Column = styled.section`
-display: flex;
-flex-direction: column;`
+import { selectFullList, selectRoster } from '../../slices/characterSlice';
+import FullList from '../../components/FullList';
+import OwnedList from '../../components/OwnedList';
+
 const Container = styled.div`
 display: flex;`
-export default function Characters ({list, refer, lang, oList, setOList}) {
-    // const LIST = list.filter((character) => )
-      function filterByID(item) {
+export default function Characters({ list, refer, lang, oList, setOList }) {
+    const storeList = useSelector(selectFullList);
+    const storeOwned = useSelector(selectRoster);
+    function filterByID(item) {
         let own = false;
-        oList.forEach( owned => {
-            console.log(`${owned.key} + ${item.key}`)
+        storeOwned.forEach(owned => {
             owned.key == item.key ? own = true : false
         })
         return !own;
     }
-      
-      const LIST = list.filter(filterByID);
-      console.log(LIST);
- return (
-    <Container>
-        <Column>
-        <h1>Characters (full list)</h1>
-        {LIST.map(s => (
-            <CharacterCard key={s.key} character={s} refer={refer} lang={lang} onClick={(e)=>console.log(e.target)}/>
-        ))}
-        </Column>
-        <Column>
-        <h1>Characters (full list)</h1>
-        {oList.map(s => (
-            <CharacterCard key={s.key} character={s} refer={refer} lang={lang} onClick={(e)=>console.log(e.target)}/>
-        ))}
-        </Column>
-    </Container>
- )   
+    function ownByID(item) {
+        let own = false;
+        storeOwned.forEach(owned => {
+            owned.key == item.key ? own = true : false
+        })
+        return own;
+    }
+    // console.log(storeList);
+    const LIST = list.filter(filterByID);
+    const OWNEDLIST = list.filter(ownByID);
+    //   const LIST = storeList.filter(filterByID);
+    return (
+        <Container>
+            <FullList LIST={LIST} />
+            <OwnedList oList={OWNEDLIST} />
+        </Container>
+    )
 }
