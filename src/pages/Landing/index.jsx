@@ -19,7 +19,7 @@ export default function Landing({ userObj, setUserObj }) {
         <>
             <Container>
                 <Login setUserObj={setUserObj} />
-                <Register />
+                <Register setUserObj={setUserObj} />
             </Container>
         </>
     )

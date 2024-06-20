@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { setRoster } from '../../slices/characterSlice';
 import styled from 'styled-components'
 import axios from 'axios';
 const Form = styled.form`
@@ -11,7 +12,7 @@ flex-direction: column`
 const baseURL = 'http://localhost:4000/auth/signup'
 
     export default function Register({setUserObj}) {
-        // const dispatch = useDispatch();
+        const dispatch = useDispatch();
         const [userName,setUserName] = useState('');
         const [pass,setPass] = useState('');
     const [email,setEmail] = useState('');
