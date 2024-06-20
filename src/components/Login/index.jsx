@@ -32,7 +32,8 @@ export default function Login({setUserObj}) {
             )
         }
         )
-        dispatch(setRoster(data.characters));
+        console.log(data.characters);
+        await dispatch(setRoster(data.characters));
     }
     return (
         <Form id='login' onSubmit={handleLogin}>

@@ -31,15 +31,21 @@ export default function Characters({ userObj }) {
     }
     const LIST = storeList.filter(filterByID);
     const OWNEDLIST = storeList.filter(ownByID);
+    console.log('Owned');
+    console.log(OWNEDLIST);
+    console.log('List');
+    console.log(LIST);
     async function handleSave(e) {
         e.preventDefault();
+        console.log(storeList);
+        console.log(OWNEDLIST);
         if (userObj.username !== '') {
             const response = await axios.put(baseURL + 'char/' + userObj.username, OWNEDLIST);
             const data = await response.data;
             console.log(await data);
         }
     }
-    
+
     return (
         <>
             <Container>
