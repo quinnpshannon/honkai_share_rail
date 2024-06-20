@@ -1,37 +1,37 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
-import {setCurrent, selectCurrent, selectReference} from '../../slices/languageSlice'
+import {setCurrent} from '../../slices/languageSlice'
+import {setRoster, setTeam} from '../../slices/characterSlice'
+import {storeUser} from '../../slices/userSlice'
 const Nav = styled.nav`
 display: flex;
 justify-content: space-between;`
-export default function NavBar() {
-    const keys = Object.keys(useSelector(selectReference));
+export default function NavBar({userObj, setUserObj}) {
     const dispatch = useDispatch();
-    const lang = useSelector(selectCurrent);
+    if(userObj.username){
+        dispatch(storeUser(userObj));
+    }
+    function logOut(){
+        setUserObj({username:''});
+        dispatch(setCurrent('en'));
+        dispatch(setRoster([]));
+        dispatch(setTeam([]));
+    }
     return (
         <Nav>
-            {/* This will be a Logo in the future */}
-            <Link to='/'>Home</Link>
             {/* This will be where the Settings live */}
-            <Link to='/profile'>Profile</Link>
+            <Link to='/'>{userObj.username?userObj.displayName:'Profile'}</Link>
+            {/* <Link to='/profile'>Profile</Link> */}
             {/* A link to your friend's pages. You can only see them if they are on your friends list! */}
-            <Link to='/friends'>Friends</Link>
+            {/* <Link to='/friends'>Friends</Link> */}
             {/* A place where you can build teams */}
             <Link to='/team'>Teams</Link>
             {/* A place where you can click on characters to add them to your list
                 and also set up their stats */}
             <Link to='/characters'>Characters</Link>
+            <button onClick={logOut}>{userObj.username?'Logout':'Clear'}</button>
             {/* This should probably move to the settings page */}
-            <div>
-                <label htmlFor="language">Language:</label>
-                <select id="language" value={lang} onChange={(e) => dispatch(setCurrent(e.target.value))}>
-                {keys.map(l => (
-                    <option value={l} key={l}>{l}</option>
-                ))}
-                </select>
-            </div>
         </Nav>
     )
 }

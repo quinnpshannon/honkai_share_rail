@@ -1,12 +1,12 @@
 import styled from 'styled-components'
-import { addRoster } from '../../slices/characterSlice'
-import { selectCurrent, selectReference, pathRef } from '../../slices/languageSlice'
+import { addRoster, removeRoster, addTeam, removeTeam, selectStatus } from '../../slices/characterSlice'
+import { selectCurrent, selectReference, pathRef, selectLangStatus } from '../../slices/languageSlice'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 const Card = styled.div`
 display:flex;
-background-color: green;
+background-color: blue;
 margin: 5px;
 padding: 5px;
 border-radius: 15px;
@@ -17,43 +17,45 @@ flex-direction: column;
 `
 const Name = styled.h1`
 background: blue;
-color: white;
+color: White;
 margin:0;
+margin-right: 10px;
 `
 const Elemental = styled.h2`
-background: white;
-color: purple;
+color: lightgrey;
 margin:0;
 `
 const Path = styled.h2`
-background: white;
-color: purple;
+color: lightgrey;
 margin:0;
 `
 const Icon = styled.img`
 height: 100px;
 width: 100px;
 `
-export default function CharacterCard({character}) {
+export default function CharacterCard({character, owned, team}) {
     const dispatch = useDispatch();
     const refer = useSelector(selectReference);
     const lang = useSelector(selectCurrent);
     const imgURL = 'https://enka.network/ui/hsr/';    
     const [level, setLevel] = useState(1);
-    const [owned, setOwned] = useState(false);
+    const idmod = owned?'o':'f';
     function handleCard(e) {
         if(!e.target.type){
-            setOwned(!owned);
-            dispatch(addRoster(character));
+            if(team){
+                owned?dispatch(removeTeam(character)):dispatch(addTeam(character));
+            } else {
+                owned?dispatch(removeRoster(character)):dispatch(addRoster(character));
+            }
         }
     }
     function handleLevel(e) {
         e.preventDefault();
         setLevel(level => e.target.value)
     }
-    return (
+    if(useSelector(selectStatus) !== 'loading' &&useSelector(selectLangStatus) !== 'loading' && character.value){
+        return (
         <Card onClick={handleCard}>
-            {/* This is the Round Icon */}
             <Icon src={imgURL + character.value.AvatarSideIconPath} />
             {/* This is the full Splash Art */}
             {/* <Icon src={imgURL+character.value.AvatarCutinFrontImgPath}/> */}
@@ -62,14 +64,18 @@ export default function CharacterCard({character}) {
                 <Elemental>{character.value.Element}</Elemental>
                 <Path>{pathRef[character.value.AvatarBaseType]}</Path>
             </Text>
-            <Text>
+            {/* <Text>
                 <div>
-                    <input type="number"
+                    <input type="number" id={idmod+'input'+character.key}
                     min={1} max={80} value={level}
                     onChange={handleLevel}/>
                 </div>
-                <h6>{owned?'True' : 'False'}</h6>
-            </Text>
+            </Text> */}
         </Card>
-    )
+    )}
+    else {
+        return (
+            <></>
+        )
+    }
 }

@@ -12,16 +12,29 @@ export const characterSlice = createSlice({
     initialState: {
         roster: [],
         fullList: [],
+        team:[],
         status: 'idle'
     },
     reducers: {
         addRoster: (state, action) => {
-            console.log(action.payload.key)
             state.roster.push(action.payload);
-            console.log(state.roster)
         },
         removeRoster: (state, action) => {
-        }
+            state.roster = state.roster.filter((chara) => chara.key !== action.payload.key);
+        },
+        setRoster: (state, action) => {
+            state.roster = (action.payload);
+        },
+        addTeam: (state, action) => {
+            state.team.push(action.payload);
+            state.team = state.team.slice(0,4);
+        },
+        removeTeam: (state, action) => {
+            state.team = state.team.filter((chara) => chara.key !== action.payload.key);
+        },
+        setTeam: (state, action) => {
+            state.team = (action.payload);
+        },
     },
     extraReducers: builder => {
         builder
@@ -45,5 +58,7 @@ export default characterSlice.reducer;
 
 export const selectRoster = (state) => state.character.roster;
 export const selectFullList = (state) => state.character.fullList;
+export const selectStatus = (state) => state.character.status;
+export const selectTeam = (state) => state.character.team;
 
-export const { addRoster, removeRoster, initFullList } = characterSlice.actions
+export const { addRoster, removeRoster, setRoster, addTeam, removeTeam, setTeam } = characterSlice.actions

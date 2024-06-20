@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
-import { selectReference, pathRef, selectCurrent } from '../../slices/languageSlice'
+import { selectReference, selectCurrent } from '../../slices/languageSlice'
 import CharacterCard from '../CharacterCard'
 const Column = styled.section`
 display: flex;
@@ -13,7 +13,7 @@ export default function FullList({ LIST }) {
         <Column>
         <h1>Characters (full list)</h1>
         {LIST.map(s => (
-            <CharacterCard key={s.key} character={s} refer={refer} lang={lang}/>
+            <CharacterCard key={'f'+s.key} character={s} owned={false} team={false}/>
         ))}
         </Column>
     )

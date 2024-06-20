@@ -13,7 +13,7 @@ export default function OwnedList({ oList }) {
         <Column>
         <h1>Characters (Roster)</h1>
         {oList.map(s => (
-            <CharacterCard key={s.key} character={s} refer={refer} lang={lang}/>
+            <CharacterCard key={'o'+s.key} character={s} owned={true} team={false}/>
         ))}
         </Column>
     )

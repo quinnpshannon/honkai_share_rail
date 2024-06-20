@@ -34,6 +34,8 @@ export default languageSlice.reducer;
 
 export const selectCurrent = (state) => state.language.current;
 export const selectReference = (state) => state.language.reference;
+export const selectLangStatus = (state) => state.language.status;
+
 export const pathRef = {
     'Knight': "Preservation",
     'Rogue': "Hunt",
