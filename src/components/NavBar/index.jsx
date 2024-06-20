@@ -1,10 +1,15 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import {setCurrent, selectCurrent, selectReference} from '../../slices/languageSlice'
 const Nav = styled.nav`
 display: flex;
 justify-content: space-between;`
-export default function NavBar({lang, setLang, refer}) {
-    const keys = Object.keys(refer)
+export default function NavBar() {
+    const keys = Object.keys(useSelector(selectReference));
+    const dispatch = useDispatch();
+    const lang = useSelector(selectCurrent);
     return (
         <Nav>
             {/* This will be a Logo in the future */}
@@ -21,7 +26,7 @@ export default function NavBar({lang, setLang, refer}) {
             {/* This should probably move to the settings page */}
             <div>
                 <label htmlFor="language">Language:</label>
-                <select id="language" value={lang} onChange={(e) => setLang(e.target.value)}>
+                <select id="language" value={lang} onChange={(e) => dispatch(setCurrent(e.target.value))}>
                 {keys.map(l => (
                     <option value={l} key={l}>{l}</option>
                 ))}

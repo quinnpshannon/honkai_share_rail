@@ -1,11 +1,15 @@
 import styled from 'styled-components'
-import { pathRef } from '../../api'
+import { addRoster } from '../../slices/characterSlice'
+import { selectCurrent, selectReference, pathRef } from '../../slices/languageSlice'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 const Card = styled.div`
 display:flex;
 background-color: green;
 margin: 5px;
 padding: 5px;
+border-radius: 15px;
 `
 const Text = styled.div`
 display:flex;
@@ -30,13 +34,17 @@ const Icon = styled.img`
 height: 100px;
 width: 100px;
 `
-export default function CharacterCard({ character, refer, lang }) {
-    const imgURL = 'https://enka.network/ui/hsr/';
+export default function CharacterCard({character}) {
+    const dispatch = useDispatch();
+    const refer = useSelector(selectReference);
+    const lang = useSelector(selectCurrent);
+    const imgURL = 'https://enka.network/ui/hsr/';    
     const [level, setLevel] = useState(1);
     const [owned, setOwned] = useState(false);
     function handleCard(e) {
         if(!e.target.type){
             setOwned(!owned);
+            dispatch(addRoster(character));
         }
     }
     function handleLevel(e) {
