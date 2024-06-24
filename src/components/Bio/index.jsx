@@ -31,8 +31,6 @@ export default function Bio({ userObj, setUserObj }) {
             dispatch(setRoster([]));
             dispatch(setTeam([]));
         }
-        // setUserObj(await data);
-        // dispatch(setRoster(data.characters));
     }
     return (
         <Column>

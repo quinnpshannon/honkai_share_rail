@@ -6,7 +6,7 @@ import axios from 'axios';
 import FullList from '../../components/FullList';
 import OwnedList from '../../components/OwnedList';
 
-const baseURL = 'https://honkai-share-rail-server.onrender.com/auth/signin'
+const baseURL = 'https://honkai-share-rail-server.onrender.com/users/'
 // const baseURL = 'http://localhost:4000/users/'
 
 const Container = styled.div`
@@ -36,10 +36,8 @@ export default function Characters({ userObj }) {
         if (userObj.username !== '') {
             const response = await axios.put(baseURL + 'char/' + userObj.username, OWNEDLIST);
             const data = await response.data;
-            console.log(await data);
         }
     }
-
     return (
         <>
             <Container>
