@@ -22,7 +22,7 @@ export default function Login({ setUserObj }) {
         const data = await response.data;
         setUserObj(await data);
         const userCharas = [];
-        await data.characters.forEach((element) => {
+        data.characters.forEach((element) => {
             roster.forEach(chara => {
                 if (element.key == chara.key) {
                     userCharas.push(chara);
