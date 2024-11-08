@@ -19,7 +19,7 @@ export default function Team() {
     function ownByID(item) {
         let own = false;
         team.forEach(owned => {
-            console.log(`${owned} - ${item}`);
+            // console.log(`${owned} - ${item}`);
             owned.key == item.key ? own = true : false
         })
         return own;
